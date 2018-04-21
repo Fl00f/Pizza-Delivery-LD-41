@@ -10,6 +10,8 @@ using System.Linq;
 
 public class BootStrap
 {
+    public static Settings GameSettings;
+
     public static MeshInstanceRenderer PlayerLook;
     public static MeshInstanceRenderer ArrowLook;
     public static MeshInstanceRenderer CannonLook;
@@ -39,14 +41,22 @@ public class BootStrap
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     public static void InitializeWithScene()
     {
+        var settingsGO = GameObject.Find("Settings");
+        GameSettings = settingsGO.GetComponent<Settings>();
+
+        GetPrototypes();
+
+        NewGame();
+    }
+
+    private static void GetPrototypes()
+    {
         PlayerLook = GetLookFromPrototype("PlayerRenderPrototype");
         ArrowLook = GetLookFromPrototype("ArrowRenderPrototype");
         CannonLook = GetLookFromPrototype("IngredientCannonPrototype");
         PizzaLook = GetLookFromPrototype("PizzaPrototype");
 
         GetIngridientPrototypes();
-
-        NewGame();
     }
 
     private static void GetIngridientPrototypes()
@@ -102,13 +112,12 @@ public class BootStrap
 
     private static void CreatePlayer(EntityManager entityManager)
     {
-        //TODO: Create some kind of settings to change in editor
         Entity playerEntity = entityManager.CreateEntity(PlayerArchetype);
         entityManager.SetComponentData(playerEntity, new PlayerInput { FireCooldown = 0 });
 
         entityManager.SetComponentData(playerEntity, new Position2D { Value = PlayerSpawnPosition });
         entityManager.SetComponentData(playerEntity, new Heading2D { Value = new float2(0.0f, 1.0f) });
-        entityManager.SetComponentData(playerEntity, new PlayerMoveSpeed { speed = 5 });
+        entityManager.SetComponentData(playerEntity, new PlayerMoveSpeed { speed = GameSettings.PlayerMovementSpeed });
 
         entityManager.AddSharedComponentData(playerEntity, PlayerLook);
     }
@@ -117,27 +126,26 @@ public class BootStrap
     {
         //TODO: Create some kind of settings to change in editor
         Entity cannonRight = entityManager.CreateEntity(CannonArchetype);
-        entityManager.SetComponentData(cannonRight, new IngridientCannon { FireCooldown = 3, CannonOn = 1 });
+        entityManager.SetComponentData(cannonRight, new IngridientCannon { FireCooldown = GameSettings.CannonFireRate, CannonOn = GameSettings.CannonsOnByDefault });
 
-        entityManager.SetComponentData(cannonRight, new Position2D { Value = new float2(10, 0) });
-        entityManager.SetComponentData(cannonRight, new Heading2D { Value = new float2(-1, 0) });
+        entityManager.SetComponentData(cannonRight, new Position2D { Value = new float2(GameSettings.CannonPositions[0].x, GameSettings.CannonPositions[0].y) });
+        entityManager.SetComponentData(cannonRight, new Heading2D { Value = new float2(GameSettings.CannonHeadings[0].x, GameSettings.CannonHeadings[0].y) });
 
         entityManager.AddSharedComponentData(cannonRight, CannonLook);
 
         //***********************************************************
 
         Entity cannonLeft = entityManager.CreateEntity(CannonArchetype);
-        entityManager.SetComponentData(cannonLeft, new IngridientCannon { FireCooldown = 3, CannonOn = 1 });
+        entityManager.SetComponentData(cannonLeft, new IngridientCannon { FireCooldown = GameSettings.CannonFireRate, CannonOn = GameSettings.CannonsOnByDefault });
 
-        entityManager.SetComponentData(cannonLeft, new Position2D { Value = new float2(-10, 0) });
-        entityManager.SetComponentData(cannonLeft, new Heading2D { Value = new float2(1, 0) });
+        entityManager.SetComponentData(cannonLeft, new Position2D { Value = new float2(GameSettings.CannonPositions[1].x, GameSettings.CannonPositions[1].y) });
+        entityManager.SetComponentData(cannonLeft, new Heading2D { Value = new float2(GameSettings.CannonHeadings[1].x, GameSettings.CannonHeadings[1].y) });
 
         entityManager.AddSharedComponentData(cannonLeft, CannonLook);
     }
 
     private static void CreatePizzas(EntityManager entityManager)
     {
-        //TODO: Create some kind of settings to change in editor
         Entity pizzaRight = entityManager.CreateEntity(PizzaArchetype);
         entityManager.SetComponentData(pizzaRight, new Pizza());
         entityManager.SetComponentData(pizzaRight, new Position2D { Value = new float2(2, 1) });

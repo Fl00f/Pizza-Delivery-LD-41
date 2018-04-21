@@ -4,7 +4,7 @@ using Unity.Entities;
 using Unity.Transforms2D;
 using UnityEngine;
 
-public class IngredientCannonSystem : ComponentSystem
+public class IngredientCannonFireSystem : ComponentSystem
 {
     private struct CannonData
     {
@@ -37,7 +37,7 @@ public class IngredientCannonSystem : ComponentSystem
                     spawnHeading = new Heading2D { Value = heading }
                 });
 
-                cannon.FireCooldown = 3;
+                cannon.FireCooldown = BootStrap.GameSettings.CannonFireRate;
             }
 
             cannonData.cannons[i] = cannon;

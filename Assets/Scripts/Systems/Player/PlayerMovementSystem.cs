@@ -34,6 +34,12 @@ public class PlayerMovementSystem : ComponentSystem
             var heading = m_Data.Heading[index].Value;
 
             var playerInput = m_Data.Input[index];
+            //This could be redundant as could just use the setting
+            //but maybe we want to do something special with the speed
+            //at a later date in other systems
+            PlayerMoveSpeed playerMoveSpeed = m_Data.speed[index];
+            playerMoveSpeed.speed = BootStrap.GameSettings.PlayerMovementSpeed;
+            m_Data.speed[index] = playerMoveSpeed;
 
             position += dt * playerInput.Move * m_Data.speed[index].speed;
 

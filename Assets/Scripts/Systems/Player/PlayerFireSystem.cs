@@ -30,7 +30,7 @@ public class PlayerFireSystem : ComponentSystem
             {
                 heading = math.normalize(playerInput.PlayerHeading);
 
-                playerInput.FireCooldown = .2f;
+                playerInput.FireCooldown = BootStrap.GameSettings.PlayerFireRate;
 
                 PostUpdateCommands.CreateEntity(BootStrap.ArrowArchetype);
 

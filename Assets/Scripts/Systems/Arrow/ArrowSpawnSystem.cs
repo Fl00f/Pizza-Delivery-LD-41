@@ -28,8 +28,8 @@ public class ShotSpawnSystem : ComponentSystem
             var arrowEntity = spawnStuffs.SpawnedEntities[i];
 
             em.RemoveComponent<ArrowSpawnData>(arrowEntity);
-            em.AddComponent(arrowEntity, new Arrow() { TimeToLive = 5 });
-            em.AddComponent(arrowEntity, new MoveSpeed() { speed = 1 });
+            em.AddComponent(arrowEntity, new Arrow() { TimeToLive = BootStrap.GameSettings.ArrowLifeTime });
+            em.AddComponent(arrowEntity, new MoveSpeed() { speed = BootStrap.GameSettings.ArrowSpeed });
             em.AddComponent(arrowEntity, sd.Position);
 
             //Cant just use sd.Heading for some reason. Look into

@@ -27,8 +27,8 @@ public class IngredientSpawnSystem : ComponentSystem
             var ingridientEntity = spawnStuffs.SpawnedEntities[i];
 
             em.RemoveComponent<IngridientSpawnData>(ingridientEntity);
-            em.AddComponent(ingridientEntity, new Ingredient() { TimeToLive = 10 });
-            em.AddComponent(ingridientEntity, new MoveSpeed() { speed = 2 });
+            em.AddComponent(ingridientEntity, new Ingredient() { TimeToLive = BootStrap.GameSettings.FlyingIngredientLifeTime });
+            em.AddComponent(ingridientEntity, new MoveSpeed() { speed = BootStrap.GameSettings.FlyingIngredientSpeed });
             em.AddComponent(ingridientEntity, sd.spawnPosition);
             em.AddComponent(ingridientEntity, sd.spawnHeading);
 

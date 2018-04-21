@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
+using Unity.Transforms;
 using Unity.Transforms2D;
 using UnityEngine;
 
@@ -28,6 +29,8 @@ public class PizzaIngredientSpawnSystem : ComponentSystem
             PostUpdateCommands.AddComponent(new OnPizzaIngredient() { OnPizza = caughtIngredientsData.caughtIngredients[index].OnPizza });
             PostUpdateCommands.AddComponent(new Heading2D() { Value = heading });
             PostUpdateCommands.AddComponent(new Position2D() { Value = position });
+            PostUpdateCommands.AddComponent(default(TransformMatrix));
+
             PostUpdateCommands.AddSharedComponent(BootStrap.IngredientLook); //TODO: Set by ingredient type
         }
     }

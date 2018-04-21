@@ -37,9 +37,10 @@ public class PizzaIngredientCatchSystem : ComponentSystem
             {
                 Ingredient ingredient = ingridientData.ingredients[inIndex];
 
-                if (ingredient.TimeToLive == 0) return;
+                if (ingredient.TimeToLive <= 0) return;
 
                 float2 delta = pizzaData.pizzaPositions[index].Value - ingridientData.ingredientPositions[inIndex].Value;
+
                 float distance = math.sqrt(math.pow(delta.x, 2) + math.pow(delta.y, 2));
 
                 if (distance < distanceToCatchIngridient)

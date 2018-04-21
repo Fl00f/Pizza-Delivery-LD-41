@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Transforms2D;
 using UnityEngine;
@@ -32,15 +33,12 @@ public class ShotSpawnSystem : ComponentSystem
             em.AddComponent(arrowEntity, new MoveSpeed() { speed = BootStrap.GameSettings.ArrowSpeed });
             em.AddComponent(arrowEntity, sd.Position);
 
-            //Cant just use sd.Heading for some reason. Look into
-            //HACK: Need to fix so that we use a set heading rather than looking for the mouse position
-            var position = sd.Position.Value;
             var heading = sd.Heading.Value;
 
-            heading = mouseData.worldPosition[0].Value - position;
+            heading = math.normalize(heading);
+            sd.Heading.Value = heading;
 
-            em.AddComponent(arrowEntity, new Heading2D { Value = heading });
-            //em.AddComponent(arrowEntity, sd.Heading);
+            em.AddComponent(arrowEntity, sd.Heading);
 
             em.AddComponent(arrowEntity, default(TransformMatrix));
 

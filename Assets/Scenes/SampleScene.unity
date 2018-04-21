@@ -673,7 +673,7 @@ MonoBehaviour:
   FlyingIngredientSpeed: 2
   PlayerMovementSpeed: 5
   PlayerFireRate: 0.3
-  CannonFireRate: 2
+  CannonFireRate: 0.1
   CannonPositions:
   - {x: 10, y: 0}
   - {x: -10, y: 0}

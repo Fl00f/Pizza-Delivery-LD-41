@@ -34,11 +34,12 @@ public class ShotSpawnSystem : ComponentSystem
             em.AddComponent(arrowEntity, sd.Position);
 
             var heading = sd.Heading.Value;
+            heading = mouseData.worldPosition[0].Value - spawnStuffs.SpawnData[i].Position.Value;
+            //heading = math.normalize(heading);
+            //sd.Heading.Value = heading;
 
-            heading = math.normalize(heading);
-            sd.Heading.Value = heading;
-
-            em.AddComponent(arrowEntity, sd.Heading);
+            em.AddComponent(arrowEntity, new Heading2D { Value = heading });
+            //em.AddComponent(arrowEntity, sd.Heading);
 
             em.AddComponent(arrowEntity, default(TransformMatrix));
 

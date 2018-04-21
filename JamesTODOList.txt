@@ -1,0 +1,5 @@
+Get player moving - Done
+Get player to look at mouse - Done
+Get player to shoot arrows - Done
+Make full arrow systems (life,movement,death)
+make full ingredient systems (life,movement,death)

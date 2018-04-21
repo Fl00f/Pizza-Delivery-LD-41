@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-public struct Ingredient : IComponentData
+public struct OnPizzaIngredient : IComponentData
 {
-    public float TimeToLive;
+    public int IngedientType;
     public Pizza OnPizza;
 }

@@ -33,6 +33,7 @@ public class ShotSpawnSystem : ComponentSystem
             em.AddComponent(arrowEntity, sd.Position);
 
             //Cant just use sd.Heading for some reason. Look into
+            //HACK: Need to fix so that we use a set heading rather than looking for the mouse position
             var position = sd.Position.Value;
             var heading = sd.Heading.Value;
 

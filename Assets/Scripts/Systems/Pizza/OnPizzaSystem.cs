@@ -5,15 +5,26 @@ using UnityEngine;
 
 public class OnPizzaSystem : ComponentSystem
 {
-    private struct IngredientsOnPizzaData
-    {
-        public ComponentDataArray<OnPizzaIngredient> onPizzaIngredients;
-    }
+    ComponentGroup onPizzaIngredients;
 
-    [Inject] private IngredientsOnPizzaData onPizzaIngredientsData;
+    protected override void OnCreateManager(int capacity)
+    {
+        onPizzaIngredients = GetComponentGroup(typeof(OnPizzaIngredient), typeof(PizzaGroup));
+    }
 
     protected override void OnUpdate()
     {
-        //just usign this to see the entities in the debugger
+        for (var p = 0; p < 2; p++)
+        {
+            onPizzaIngredients.SetFilter(new PizzaGroup { PizzaId = p });
+
+            var length = onPizzaIngredients.CalculateLength();
+            for (int i = 0; i < length; i++)
+            {
+                Debug.Log("Pizza " + p + ": " +
+                    onPizzaIngredients.GetComponentDataArray<OnPizzaIngredient>()[i].IngedientType);
+            }
+            Debug.Log("*****");
+        }
     }
 }

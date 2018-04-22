@@ -6,5 +6,4 @@ using UnityEngine;
 public struct OnPizzaIngredient : IComponentData
 {
     public int IngedientType;
-    public Pizza OnPizza;
 }

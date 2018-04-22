@@ -27,28 +27,6 @@ public class IngredientLookSystem : ComponentSystem
 
     private MeshInstanceRenderer GetIngredientLook(int ingredientType)
     {
-        switch (ingredientType)
-        {
-            case 0:
-                return BootStrap.IngredientCheeseLook;
-
-            case 1:
-                return BootStrap.IngredientChickenLook;
-
-            case 2:
-                return BootStrap.IngredientMushroomLook;
-
-            case 3:
-                return BootStrap.IngredientOnionLook;
-
-            case 4:
-                return BootStrap.IngredientPeperoniLook;
-
-            case 5:
-                return BootStrap.IngredientSausageLook;
-
-            default:
-                return BootStrap.IngredientDefaultLook;
-        }
+        return BootStrap.GetIngredientLook(ingredientType);
     }
 }

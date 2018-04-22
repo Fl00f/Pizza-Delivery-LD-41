@@ -245,6 +245,7 @@ public class BootStrap
         Entity pizzaRight = entityManager.CreateEntity();
         entityManager.AddSharedComponentData(pizzaRight, new PizzaSpawnData
         {
+            PizzaGroup = new PizzaGroup { PizzaId = 0 },
             Position = new Position2D { Value = new float2(2, 1) },
             IngredientList = pizzaRightIngredients
         });
@@ -257,6 +258,7 @@ public class BootStrap
         Entity pizzaLeft = entityManager.CreateEntity();
         entityManager.AddSharedComponentData(pizzaLeft, new PizzaSpawnData
         {
+            PizzaGroup = new PizzaGroup { PizzaId = 1 },
             Position = new Position2D { Value = new float2(-2, 1) },
             IngredientList = pizzaLeftIngredients
         });

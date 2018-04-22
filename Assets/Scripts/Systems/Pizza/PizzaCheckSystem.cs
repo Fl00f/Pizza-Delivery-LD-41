@@ -92,6 +92,7 @@ public class PizzaCheckSystem : ComponentSystem
 
         PostUpdateCommands.AddSharedComponent(new PizzaSpawnData
         {
+            PizzaGroup = pizzaGroup,
             Position = pizzaPosition,
             IngredientList = pizzaIngredients
         });

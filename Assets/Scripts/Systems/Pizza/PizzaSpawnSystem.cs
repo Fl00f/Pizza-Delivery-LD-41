@@ -18,8 +18,6 @@ public class PizzaSpawnSystem : ComponentSystem
 
     [Inject] private Data data;
 
-    private static int nextPizzaId = 0;
-
     protected override void OnUpdate()
     {
         for (int i = 0; i < data.Length; ++i)
@@ -29,7 +27,7 @@ public class PizzaSpawnSystem : ComponentSystem
 
             PostUpdateCommands.RemoveComponent<PizzaSpawnData>(spawnedEntity);
 
-            PostUpdateCommands.AddSharedComponent(spawnedEntity, new PizzaGroup {PizzaId = nextPizzaId++});
+            PostUpdateCommands.AddSharedComponent(spawnedEntity, spawnData.PizzaGroup);
             PostUpdateCommands.AddComponent(spawnedEntity, spawnData.Position );
             PostUpdateCommands.AddSharedComponent(spawnedEntity, new IngredientList { Value = spawnData.IngredientList });
 

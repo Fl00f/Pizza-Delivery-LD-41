@@ -13,9 +13,10 @@ public class BootStrap
 {
     public static Settings GameSettings;
 
+    public static GameObject[] PizzaOrderUIs;
+
     #region IngredientLooks
 
-    public static List<MeshInstanceRenderer> IngredientLooks;
     public static MeshInstanceRenderer IngredientDefaultLook;
 
     public static IngredientData[] IngredientsData;
@@ -118,6 +119,34 @@ public class BootStrap
         };
     }
 
+    private static void SetPizzaOrderUI()
+    {
+        PizzaOrderUIs = new GameObject[] {
+            GameObject.Find("PizzaOrderUI0"),
+            GameObject.Find("PizzaOrderUI1")
+        };
+
+        foreach (var item in PizzaOrderUIs)
+        {
+            if (item == null)
+            {
+                Debug.LogWarning("One of the Pizza Order UIs came up null");
+            }
+        }
+    }
+
+    private static void SetPizzaOrderUIIngredients(string ingredients, int pizzaOrderUIIndex)
+    {
+        if (pizzaOrderUIIndex >= 0 && pizzaOrderUIIndex < PizzaOrderUIs.Length)
+            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetIngredientsListText(ingredients);
+    }
+
+    private static void SetPizzaOrderUIPrice(float price, int pizzaOrderUIIndex)
+    {
+        if (pizzaOrderUIIndex >= 0 && pizzaOrderUIIndex < PizzaOrderUIs.Length)
+            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetCostText($"Price: {price.ToString("C2")}");
+    }
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
     {
@@ -130,6 +159,7 @@ public class BootStrap
         }
 
         InitSomeDefaultSystemDependancies();
+        SetPizzaOrderUI();
     }
 
     private static void InitSomeDefaultSystemDependancies()
@@ -161,6 +191,8 @@ public class BootStrap
         {
             item.Enabled = true;
         }
+        SetPizzaOrderUIPrice(34234, 2222);
+        SetPizzaOrderUIPrice(66666, 0);
     }
 
     public static void GameOver()

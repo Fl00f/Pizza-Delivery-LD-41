@@ -18,6 +18,8 @@ public class BootStrap
     public static List<MeshInstanceRenderer> IngredientLooks;
     public static MeshInstanceRenderer IngredientDefaultLook;
 
+    public static IngredientData[] IngredientsData;
+
     #endregion IngredientLooks
 
     public static MeshInstanceRenderer PlayerLook;
@@ -70,34 +72,50 @@ public class BootStrap
         CannonLook = GetLookFromPrototype("IngredientCannonPrototype");
         PizzaLook = GetLookFromPrototype("PizzaPrototype");
 
-        SetIngridientPrototypes();
+        SetIngridientData();
         wasProtoTypesSet = true;
     }
 
     public static MeshInstanceRenderer GetIngredientLook(int ingredientType)
     {
-        if (!(ingredientType >= 0 && ingredientType < IngredientLooks.Count))
+        if (!(ingredientType >= 0 && ingredientType < IngredientsData.Length))
         {
             return IngredientDefaultLook;
         }
-        return IngredientLooks[ingredientType];
+        return IngredientsData[ingredientType].IngredientLook;
     }
 
-    private static void SetIngridientPrototypes()
+    public static string GetIngredientName(int ingredientType)
+    {
+        if (!(ingredientType >= 0 && ingredientType < IngredientsData.Length))
+        {
+            return "Default Ingredient";
+        }
+        return IngredientsData[ingredientType].IngredientName;
+    }
+
+    public static float GetIngredientCost(int ingredientType)
+    {
+        if (!(ingredientType >= 0 && ingredientType < IngredientsData.Length))
+        {
+            return 0;
+        }
+        return IngredientsData[ingredientType].IngredientCost;
+    }
+
+    private static void SetIngridientData()
     {
         IngredientDefaultLook = GetLookFromPrototype(nameof(IngredientDefaultLook)); //Default for testing
 
-        if (IngredientLooks == null)
+        IngredientsData = new IngredientData[]
         {
-            IngredientLooks = new List<MeshInstanceRenderer>() {
-            GetLookFromPrototype("IngredientPeperoniLook"),
-            GetLookFromPrototype("IngredientOnionLook"),
-            GetLookFromPrototype("IngredientChickenLook"),
-            GetLookFromPrototype("IngredientCheeseLook"),
-            GetLookFromPrototype("IngredientSausageLook"),
-            GetLookFromPrototype("IngredientMushroomLook")
+            new IngredientData(){ IngredientName = "Peperoni", IngredientLook = GetLookFromPrototype("IngredientPeperoniLook"), IngredientCost = 1.99f },
+            new IngredientData(){ IngredientName = "Onion", IngredientLook = GetLookFromPrototype("IngredientOnionLook"), IngredientCost = 1.99f },
+            new IngredientData(){ IngredientName = "Chucken", IngredientLook = GetLookFromPrototype("IngredientChickenLook"), IngredientCost = 1.99f },
+            new IngredientData(){ IngredientName = "Cheese", IngredientLook = GetLookFromPrototype("IngredientCheeseLook"), IngredientCost = 1.99f },
+            new IngredientData(){ IngredientName = "Sausage", IngredientLook = GetLookFromPrototype("IngredientSausageLook"), IngredientCost = 1.99f },
+            new IngredientData(){ IngredientName = "Mushroom", IngredientLook = GetLookFromPrototype("IngredientPeperoniLook"), IngredientCost = 1.99f }
         };
-        }
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -281,5 +299,12 @@ public class BootStrap
         var result = proto.GetComponent<MeshInstanceRendererComponent>().Value;
         UnityEngine.Object.Destroy(proto);
         return result;
+    }
+
+    public struct IngredientData
+    {
+        public string IngredientName;
+        public MeshInstanceRenderer IngredientLook;
+        public float IngredientCost;
     }
 }

@@ -88,15 +88,19 @@ public class PizzaCheckSystem : ComponentSystem
         }
 
         // Create new Pizza.
+        createNewPizza(pizzaIndex);
+    }
+
+    private void createNewPizza (int pizzaIndex) {
+        PizzaGroup pizzaGroup = pizzaData.PizzaGroup[pizzaIndex];
+        Position2D pizzaPosition = pizzaData.Position[pizzaIndex];
+
         PostUpdateCommands.CreateEntity();
-        List<int> pizzaIngredients = new List<int>();
-        pizzaIngredients.Add(1);
 
         PostUpdateCommands.AddSharedComponent(new PizzaSpawnData
         {
             PizzaGroup = pizzaGroup,
-            Position = pizzaPosition,
-            IngredientList = pizzaIngredients
+            Position = pizzaPosition
         });
     }
 

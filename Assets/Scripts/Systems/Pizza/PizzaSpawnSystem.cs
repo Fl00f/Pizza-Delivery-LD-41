@@ -29,20 +29,36 @@ public class PizzaSpawnSystem : ComponentSystem
 
             PostUpdateCommands.AddSharedComponent(spawnedEntity, spawnData.PizzaGroup);
             PostUpdateCommands.AddComponent(spawnedEntity, spawnData.Position );
-            PostUpdateCommands.AddSharedComponent(spawnedEntity, new IngredientList { Value = spawnData.IngredientList });
+            IngredientList ingredientList = new IngredientList { Value = generatePizzaIngredients() };
+            PostUpdateCommands.AddSharedComponent(spawnedEntity, ingredientList);
 
             PostUpdateCommands.AddComponent(spawnedEntity, new Pizza {});
             PostUpdateCommands.AddComponent(spawnedEntity, new Heading2D { Value = new float2(0, -1) });
             PostUpdateCommands.AddComponent(spawnedEntity, default(TransformMatrix) );
             PostUpdateCommands.AddSharedComponent(spawnedEntity, BootStrap.PizzaLook);
         
-            PostUpdateCommands.AddComponent(spawnedEntity, getPizzaCost(spawnData));
+            PostUpdateCommands.AddComponent(spawnedEntity, getPizzaCost(ingredientList));
 
-            BootStrap.SetPizzaOrderUIIngredients(spawnData.IngredientList, spawnData.PizzaGroup.PizzaId);
+            BootStrap.SetPizzaOrderUIIngredients(ingredientList.Value, spawnData.PizzaGroup.PizzaId);
         }
     }
 
-    private PizzaCost getPizzaCost(PizzaSpawnData spawnData) {
-        return new PizzaCost { OrderCost = spawnData.IngredientList.Count * 10 };
+    // A really, really inefficient random list generator.
+    private List<int> generatePizzaIngredients  () {
+        List<int> pizzaIngredients = new List<int>();
+        int numIngredients = Random.Range(0, 5);
+        while (pizzaIngredients.Count < numIngredients)
+        {
+            int randomIngredient = Random.Range(0, BootStrap.IngredientsData.Length);
+            if (!pizzaIngredients.Contains(randomIngredient))
+            {
+                pizzaIngredients.Add(randomIngredient);
+            }
+        }
+        return pizzaIngredients;
+    }
+
+    private PizzaCost getPizzaCost(IngredientList ingredientList) {
+        return new PizzaCost { OrderCost = ingredientList.Value.Count * 10 };
     }
 }

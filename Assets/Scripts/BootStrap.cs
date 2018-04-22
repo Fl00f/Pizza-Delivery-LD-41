@@ -305,7 +305,7 @@ public class BootStrap
         {
             PizzaGroup = new PizzaGroup { PizzaId = 1 },
             Position = new Position2D { Value = new float2(2, 1) },
-            IngredientList = pizzaRightIngredients
+            // IngredientList = pizzaRightIngredients
         });
 
         //***********************************************************
@@ -318,7 +318,7 @@ public class BootStrap
         {
             PizzaGroup = new PizzaGroup { PizzaId = 0 },
             Position = new Position2D { Value = new float2(-2, 1) },
-            IngredientList = pizzaLeftIngredients
+            // IngredientList = pizzaLeftIngredients
         });
     }
 

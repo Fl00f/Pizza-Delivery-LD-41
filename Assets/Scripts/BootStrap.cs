@@ -137,8 +137,13 @@ public class BootStrap
 
     public static void SetPizzaOrderUIIngredients(List<int> ingredientTypes, int pizzaOrderUIIndex)
     {
+        string[] ingredientNames = new string[ingredientTypes.Count];
+        for (int i = 0; i < ingredientTypes.Count; i++) {
+            ingredientNames[i] = IngredientsData[ingredientTypes[i]].IngredientName;
+        }
+
         if (pizzaOrderUIIndex >= 0 && pizzaOrderUIIndex < PizzaOrderUIs.Length)
-            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetIngredientsListText(string.Join(", ", ingredientTypes));
+            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetIngredientsListText(string.Join(", ", ingredientNames));
     }
 
     public static void SetPizzaOrderUIPrice(float price, int pizzaOrderUIIndex)

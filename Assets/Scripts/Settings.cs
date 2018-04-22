@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Settings : MonoBehaviour
@@ -28,6 +29,8 @@ public class Settings : MonoBehaviour
     public float PlayerMovementSpeed;
 
     public float PlayerFireRate; //pre second
+
+    public Vector2 PlayerSpawnPosition;
 
     #endregion Player
 

@@ -28,8 +28,6 @@ public class BootStrap
 
     public static EntityArchetype MouseDataArchetype { get; private set; }
 
-    //public static float2 PlayerSpawnPosition;
-
     private static Canvas GameOverScreen;
 
     private static bool wasSceneGOsSet = false;
@@ -41,8 +39,10 @@ public class BootStrap
 
         var settingsGO = GameObject.Find("Settings");
         GameSettings = settingsGO.GetComponent<Settings>();
+
         var gameOverGO = GameObject.Find("GameEndCanvas");
         GameOverScreen = gameOverGO.GetComponent<Canvas>();
+
         wasSceneGOsSet = true;
     }
 
@@ -64,9 +64,30 @@ public class BootStrap
         IngredientLook = GetLookFromPrototype("IngredientPrototype");
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void Init()
+    {
+        GetSceneGOs();
+
+        //disable systems on scene start
+        foreach (var item in World.Active.BehaviourManagers)
+        {
+            item.Enabled = false;
+        }
+
+        InitSomeDefaultSystemDependancies();
+    }
+
+    private static void InitSomeDefaultSystemDependancies()
+    {
+        World.Active.GetOrCreateManager<GameEndSystem>().SetGameOverScreen(GameOverScreen);
+    }
+
     public static void NewGame()
     {
         var entityManager = World.Active.GetOrCreateManager<EntityManager>();
+
+        InitSomeDefaultSystemDependancies();
 
         GetPrototypes();
         GetSceneGOs();
@@ -79,6 +100,11 @@ public class BootStrap
 
         CreateCannons(entityManager);
         CreatePizzas(entityManager);
+
+        foreach (var item in World.Active.BehaviourManagers)
+        {
+            item.Enabled = true;
+        }
     }
 
     public static void GameOver()
@@ -96,7 +122,9 @@ public class BootStrap
     public static void RestartGame()
     {
         GameOverScreen.enabled = false;
+
         NewGame();
+
         foreach (var item in World.Active.BehaviourManagers)
         {
             item.Enabled = true;

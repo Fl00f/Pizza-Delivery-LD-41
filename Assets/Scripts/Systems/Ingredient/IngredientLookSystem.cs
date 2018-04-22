@@ -21,7 +21,8 @@ public class IngredientLookSystem : ComponentSystem
         for (int i = 0; i < ingredientData.Length; i++)
         {
             PostUpdateCommands.RemoveComponent<IngredientJustSpawn>(ingredientData.entities[i]);
-            PostUpdateCommands.AddSharedComponent(ingredientData.entities[i], GetIngredientLook(/*ingredientData.ingredients[i].IngredientType*/ 0));
+            //PostUpdateCommands.AddSharedComponent(ingredientData.entities[i], GetIngredientLook(ingredientData.ingredients[i].IngredientType));
+            PostUpdateCommands.AddSharedComponent(ingredientData.entities[i], GetIngredientLook(0));
         }
     }
 

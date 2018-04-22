@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-public struct Pizza : IComponentData
+public struct TimedLife : IComponentData
 {
-    public int ExpectedCost;
-    public int ActualCost;
+    public float TimeToLive;
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -12,38 +13,41 @@ public class PizzaIngredientCatchSystem : ComponentSystem
     {
         public int Length;
         public ComponentDataArray<Pizza> pizzas;
+        [ReadOnly] public SharedComponentDataArray<PizzaGroup> pizzaGroups;
         public ComponentDataArray<Position2D> pizzaPositions;
     }
 
-    private struct IngridientData
+    private struct IngredientData
     {
         public int Length;
         public EntityArray entities;
         public ComponentDataArray<Ingredient> ingredients;
+        public ComponentDataArray<MoveSpeed> moveSpeed;
         public ComponentDataArray<Position2D> ingredientPositions;
-        public ComponentDataArray<Heading2D> ingredientHeadings;
+        // public ComponentDataArray<Heading2D> ingredientHeadings;
     }
 
     [Inject] private PizzaData pizzaData;
-    [Inject] private IngridientData ingridientData;
+    [Inject] private IngredientData ingredientData;
 
     private float distanceToCatchIngridient = .5f;
 
     protected override void OnUpdate()
     {
-        for (int index = 0; index < pizzaData.Length; index++)
+        for (int pizzaIndex = 0; pizzaIndex < pizzaData.Length; pizzaIndex++)
         {
-            for (int inIndex = 0; inIndex < ingridientData.Length; inIndex++)
+            for (int ingredientIndex = 0; ingredientIndex < ingredientData.Length; ingredientIndex++)
             {
-                Ingredient ingredient = ingridientData.ingredients[inIndex];
+                // Ingredient ingredient = ingridientData.ingredients[inIndex];
 
-                if (ingredient.TimeToLive <= 0) return;
-
-                float2 delta = pizzaData.pizzaPositions[index].Value - ingridientData.ingredientPositions[inIndex].Value;
+                float2 delta = pizzaData.pizzaPositions[pizzaIndex].Value - ingredientData.ingredientPositions[ingredientIndex].Value;
                 float distance = math.sqrt(math.pow(delta.x, 2) + math.pow(delta.y, 2));
 
                 if (distance < distanceToCatchIngridient)
                 {
+                    handleIngredientHitPizza(ingredientIndex, pizzaIndex);
+
+                    /*
                     PostUpdateCommands.CreateEntity(BootStrap.IngredientPizzaSpawnArchetype);
 
                     PostUpdateCommands.SetComponent(new IngredientSpawnOnPizzaData()
@@ -53,11 +57,25 @@ public class PizzaIngredientCatchSystem : ComponentSystem
                         // OnPizza = pizzaData.pizzas[index]
                     });
 
-                    ingredient.TimeToLive = 0;
-
                     ingridientData.ingredients[inIndex] = ingredient;
+                    */
                 }
             }
         }
+    }
+
+    private void handleIngredientHitPizza (int ingredientIndex, int pizzaIndex) {
+
+        // Note: This component acts as state for if it's on the pizza.
+        // Refactor.
+        PostUpdateCommands.RemoveComponent<MoveSpeed>(
+            ingredientData.entities[ingredientIndex]);
+
+        PostUpdateCommands.RemoveComponent<TimedLife>(
+            ingredientData.entities[ingredientIndex]);
+
+        PostUpdateCommands.AddSharedComponent<PizzaGroup>(
+            ingredientData.entities[ingredientIndex],
+            pizzaData.pizzaGroups[pizzaIndex]);
     }
 }

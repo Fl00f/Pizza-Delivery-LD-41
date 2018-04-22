@@ -5,5 +5,4 @@ using UnityEngine;
 
 public struct Arrow : IComponentData
 {
-    public float TimeToLive;
 }

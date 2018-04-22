@@ -166,14 +166,17 @@ public class BootStrap
         IngredientSpawnArchetype = entityManager.CreateArchetype(typeof(IngridientSpawnData));
 
         PizzaArchetype = entityManager.CreateArchetype(typeof(Pizza),
+                                                            typeof(PizzaGroup),
                                                             typeof(Heading2D),
                                                             typeof(Position2D),
                                                             typeof(TransformMatrix));
-
+        
+        /*
         IngredientPizzaSpawnArchetype = entityManager.CreateArchetype(typeof(IngredientSpawnOnPizzaData),
                                                            typeof(Heading2D),
                                                            typeof(Position2D),
                                                            typeof(TransformMatrix));
+                                                           */
 
         ScoringArchetype = entityManager.CreateArchetype(typeof(ScoreKeeper));
         AddScoreArchetype = entityManager.CreateArchetype(typeof(AddScore));
@@ -217,7 +220,7 @@ public class BootStrap
     private static void CreatePizzas(EntityManager entityManager)
     {
         Entity pizzaRight = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetComponentData(pizzaRight, new Pizza { PizzaGroup = new PizzaGroup { PizzaId = 0 } });
+        entityManager.SetSharedComponentData(pizzaRight, new PizzaGroup { PizzaId = 0 } );
         entityManager.SetComponentData(pizzaRight, new Position2D { Value = new float2(2, 1) });
         entityManager.SetComponentData(pizzaRight, new Heading2D { Value = new float2(0, -1) });
 
@@ -229,7 +232,7 @@ public class BootStrap
         //***********************************************************
 
         Entity pizzaLeft = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetComponentData(pizzaLeft, new Pizza { PizzaGroup = new PizzaGroup { PizzaId = 1 } });
+        entityManager.SetSharedComponentData(pizzaLeft, new PizzaGroup { PizzaId = 1 } );
         entityManager.SetComponentData(pizzaLeft, new Position2D { Value = new float2(-2, 1) });
         entityManager.SetComponentData(pizzaLeft, new Heading2D { Value = new float2(0, -1) });
 

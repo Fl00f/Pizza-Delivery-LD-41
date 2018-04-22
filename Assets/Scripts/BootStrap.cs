@@ -7,6 +7,7 @@ using Unity.Transforms;
 using Unity.Transforms2D;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BootStrap
 {
@@ -27,8 +28,10 @@ public class BootStrap
     public static EntityArchetype PizzaArchetype { get; private set; }
 
     public static EntityArchetype MouseDataArchetype { get; private set; }
+    public static EntityArchetype ScoringArchetype { get; private set; }
 
     private static Canvas GameOverScreen;
+    private static Text ScoringText;
 
     private static bool wasSceneGOsSet = false;
     private static bool wasProtoTypesSet = false;
@@ -43,6 +46,9 @@ public class BootStrap
         var gameOverGO = GameObject.Find("GameEndCanvas");
         GameOverScreen = gameOverGO.GetComponent<Canvas>();
 
+        var scoringText = GameObject.Find("ScoringText");
+        ScoringText = scoringText.GetComponent<Text>();
+
         wasSceneGOsSet = true;
     }
 
@@ -54,8 +60,8 @@ public class BootStrap
         ArrowLook = GetLookFromPrototype("ArrowRenderPrototype");
         CannonLook = GetLookFromPrototype("IngredientCannonPrototype");
         PizzaLook = GetLookFromPrototype("PizzaPrototype");
-        wasProtoTypesSet = true;
         GetIngridientPrototypes();
+        wasProtoTypesSet = true;
     }
 
     private static void GetIngridientPrototypes()
@@ -81,6 +87,7 @@ public class BootStrap
     private static void InitSomeDefaultSystemDependancies()
     {
         World.Active.GetOrCreateManager<GameEndSystem>().SetGameOverScreen(GameOverScreen);
+        World.Active.GetOrCreateManager<ScoringSystem>().SetScoringText(ScoringText);
     }
 
     public static void NewGame()
@@ -100,6 +107,7 @@ public class BootStrap
 
         CreateCannons(entityManager);
         CreatePizzas(entityManager);
+        CreateScoreKeeper(entityManager);
 
         foreach (var item in World.Active.BehaviourManagers)
         {
@@ -163,6 +171,8 @@ public class BootStrap
                                                            typeof(Heading2D),
                                                            typeof(Position2D),
                                                            typeof(TransformMatrix));
+
+        ScoringArchetype = entityManager.CreateArchetype(typeof(ScoreKeeper));
     }
 
     private static void CreatePlayer(EntityManager entityManager)
@@ -208,7 +218,7 @@ public class BootStrap
 
         List<int> pizzaRightIngredients = new List<int>();
         pizzaRightIngredients.Add(0);
-        entityManager.AddSharedComponentData(pizzaRight, new PizzaOrder { IngredientType = pizzaRightIngredients } );
+        entityManager.AddSharedComponentData(pizzaRight, new PizzaOrder { IngredientType = pizzaRightIngredients });
         entityManager.AddSharedComponentData(pizzaRight, PizzaLook);
 
         //***********************************************************
@@ -222,6 +232,13 @@ public class BootStrap
         pizzaLeftIngredients.Add(1);
         entityManager.AddSharedComponentData(pizzaLeft, new PizzaOrder { IngredientType = pizzaLeftIngredients });
         entityManager.AddSharedComponentData(pizzaLeft, PizzaLook);
+    }
+
+    private static void CreateScoreKeeper(EntityManager entityManager)
+    {
+        Entity scorer = entityManager.CreateEntity(ScoringArchetype);
+        entityManager.SetComponentData(scorer, new ScoreKeeper() { Score = 0 });
+        entityManager.AddSharedComponentData(scorer, new ScoringGroup() { GroupId = 0 });
     }
 
     private static MeshInstanceRenderer GetLookFromPrototype(string protoName)

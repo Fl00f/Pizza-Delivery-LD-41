@@ -25,7 +25,6 @@ public class IngredientSpawnSystem : ComponentSystem
         {
             var sd = spawnStuffs.SpawnData[i];
             var ingridientEntity = spawnStuffs.SpawnedEntities[i];
-            int ingredientType = spawnStuffs.SpawnData[i].IngridientType;
 
             em.RemoveComponent<IngridientSpawnData>(ingridientEntity);
             em.AddComponent(ingridientEntity, new IngredientJustSpawn() { });

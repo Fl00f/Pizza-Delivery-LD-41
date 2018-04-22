@@ -186,7 +186,7 @@ public class BootStrap
 
         CreatePlayer(entityManager);
 
-        var mouseEntity = entityManager.CreateEntity(MouseDataArchetype);
+        // var mouseEntity = entityManager.CreateEntity(MouseDataArchetype);
 
         CreateCannons(entityManager);
         CreatePizzas(entityManager);

@@ -6,5 +6,5 @@ using UnityEngine;
 public struct Ingredient : IComponentData
 {
     public float TimeToLive;
-    public Pizza OnPizza;
+    // public Pizza OnPizza;
 }

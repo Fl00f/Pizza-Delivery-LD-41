@@ -202,7 +202,7 @@ public class BootStrap
     private static void CreatePizzas(EntityManager entityManager)
     {
         Entity pizzaRight = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetComponentData(pizzaRight, new Pizza { PizzaId = 0 });
+        entityManager.SetComponentData(pizzaRight, new Pizza { PizzaGroup = new PizzaGroup { PizzaId = 0} });
         entityManager.SetComponentData(pizzaRight, new Position2D { Value = new float2(2, 1) });
         entityManager.SetComponentData(pizzaRight, new Heading2D { Value = new float2(0, -1) });
 
@@ -214,7 +214,7 @@ public class BootStrap
         //***********************************************************
 
         Entity pizzaLeft = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetComponentData(pizzaLeft, new Pizza { PizzaId = 1 });
+        entityManager.SetComponentData(pizzaLeft, new Pizza { PizzaGroup = new PizzaGroup { PizzaId = 1 } });
         entityManager.SetComponentData(pizzaLeft, new Position2D { Value = new float2(-2, 1) });
         entityManager.SetComponentData(pizzaLeft, new Heading2D { Value = new float2(0, -1) });
 

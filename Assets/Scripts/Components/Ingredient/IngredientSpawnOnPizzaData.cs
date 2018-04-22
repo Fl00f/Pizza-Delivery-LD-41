@@ -10,6 +10,8 @@ public struct IngredientSpawnOnPizzaData : IComponentData
 {
     public float2 position;
     public float2 heading;
+
     public int IngredientType;
-    public Pizza OnPizza;
+    public PizzaGroup PizzaGroup;
+    // public Pizza OnPizza;
 }

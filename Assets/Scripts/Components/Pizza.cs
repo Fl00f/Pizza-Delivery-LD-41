@@ -5,7 +5,8 @@ using UnityEngine;
 
 public struct Pizza : IComponentData
 {
-    public int PizzaId;
+    public PizzaGroup PizzaGroup;
+
     public int ExpectedCost;
     public int ActualCost;
 }

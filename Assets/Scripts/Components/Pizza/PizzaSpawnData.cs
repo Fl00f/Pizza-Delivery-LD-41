@@ -6,8 +6,6 @@ using UnityEngine;
 
 public struct PizzaSpawnData : ISharedComponentData
 {
-    public int PizzaId;
-
     public List<int> IngredientList;
 
     public Position2D Position;

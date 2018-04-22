@@ -36,11 +36,21 @@ public class OnPizzaSystem : ComponentSystem
         {
             updatePizzaCost(pizzaIndex);
 
+            /*
+            Entity pizzaEntity = pizzaData.Entities[pizzaIndex];
+            PizzaGroup pizzaGroup = pizzaData.PizzaGroup[pizzaIndex];
+            Position2D pizzaPosition = pizzaData.Position[pizzaIndex];
+            PizzaCost pizzaCost = pizzaData.PizzaCost[pizzaIndex];
+            Debug.Log("PIZZA STATE - " + pizzaGroup.PizzaId + ": " + String.Join("; ", getIngredientsOnPizza(pizzaIndex)));
+            */
+
             if (isPizzaComplete(pizzaIndex)) {
                 handlePizzaComplete(pizzaIndex);
             }
 
         }
+
+        // Debug.Log("***");
     }
 
     private void handlePizzaComplete (int pizzaIndex) {
@@ -78,7 +88,6 @@ public class OnPizzaSystem : ComponentSystem
 
         PostUpdateCommands.AddSharedComponent(new PizzaSpawnData
         {
-            PizzaId = pizzaGroup.PizzaId,
             Position = pizzaPosition,
             IngredientList = pizzaIngredients
         });

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*
+
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Transforms;
@@ -24,6 +26,9 @@ public class PizzaIngredientSpawnSystem : ComponentSystem
             var heading = caughtIngredientsData.caughtIngredients[index].heading;
             var pizzaGroup = caughtIngredientsData.caughtIngredients[index].PizzaGroup;
 
+
+
+            /*
             PostUpdateCommands.DestroyEntity(caughtIngredientsData.entities[index]);
 
             PostUpdateCommands.CreateEntity();
@@ -33,7 +38,14 @@ public class PizzaIngredientSpawnSystem : ComponentSystem
             PostUpdateCommands.AddComponent(new Position2D { Value = position });
             PostUpdateCommands.AddComponent(default(TransformMatrix));
 
+<<<<<<< HEAD
             PostUpdateCommands.AddSharedComponent(BootStrap.IngredientDefaultLook); //TODO: Set by ingredient type
+=======
+            PostUpdateCommands.AddSharedComponent(BootStrap.IngredientLook); //TODO: Set by ingredient type
+
+>>>>>>> refactor
         }
     }
 }
+
+*/

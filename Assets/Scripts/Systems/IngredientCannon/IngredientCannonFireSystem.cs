@@ -34,7 +34,8 @@ public class IngredientCannonFireSystem : ComponentSystem
                 PostUpdateCommands.SetComponent(new IngridientSpawnData
                 {
                     spawnPosition = new Position2D { Value = position },
-                    spawnHeading = new Heading2D { Value = heading }
+                    spawnHeading = new Heading2D { Value = heading },
+                    IngridientType = Random.Range(0, BootStrap.IngredientLooks.Count) //Random for now
                 });
 
                 cannon.FireCooldown = BootStrap.GameSettings.CannonFireRate;

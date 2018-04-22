@@ -25,17 +25,17 @@ public class IngredientSpawnSystem : ComponentSystem
         {
             var sd = spawnStuffs.SpawnData[i];
             var ingridientEntity = spawnStuffs.SpawnedEntities[i];
+            int ingredientType = spawnStuffs.SpawnData[i].IngridientType;
 
             em.RemoveComponent<IngridientSpawnData>(ingridientEntity);
-            em.AddComponent(ingridientEntity, new Ingredient() {});
+            em.AddComponent(ingridientEntity, new IngredientJustSpawn() { });
+            em.AddComponent(ingridientEntity, new Ingredient() { IngredientType = spawnStuffs.SpawnData[i].IngridientType });
             em.AddComponent(ingridientEntity, new TimedLife() { TimeToLive = BootStrap.GameSettings.FlyingIngredientLifeTime });
             em.AddComponent(ingridientEntity, new MoveSpeed() { speed = BootStrap.GameSettings.FlyingIngredientSpeed });
             em.AddComponent(ingridientEntity, sd.spawnPosition);
             em.AddComponent(ingridientEntity, sd.spawnHeading);
 
             em.AddComponent(ingridientEntity, default(TransformMatrix));
-
-            em.AddSharedComponent(ingridientEntity, BootStrap.IngredientDefaultLook);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 using Unity.Transforms2D;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class ArrowInterceptSystem : ComponentSystem
     {
         public int Length;
         public ComponentDataArray<Ingredient> ingredients;
+        public ComponentDataArray<MoveSpeed> moveSpeeds; // Used as a filter. Refactor.
         public ComponentDataArray<Position2D> ingredientPositions;
         public ComponentDataArray<Heading2D> ingredientHeadings;
     }

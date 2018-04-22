@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
@@ -37,7 +38,6 @@ public class OnPizzaSystem : ComponentSystem
 
             PizzaOrder pizzaOrder = pizzaAssemblyData.pizzaOrder[p];
 
-            // Not fully working yet.
             List<int> missingIngredients = pizzaOrder.IngredientType.Except<int>(ingredientTypes).ToList();
             List<int> extraIngredients = ingredientTypes.Except<int>(pizzaOrder.IngredientType).ToList();
 
@@ -50,7 +50,7 @@ public class OnPizzaSystem : ComponentSystem
             pizza.ActualCost = actualCost;
             pizzaAssemblyData.pizza[p] = pizza;
 
-            Debug.Log("PIZZA " + pizza.PizzaId + ": " + pizza.ExpectedCost + " | " + pizza.ActualCost);
+            // Debug.Log("PIZZA " + pizza.PizzaId + ": " + pizza.ExpectedCost + " | " + pizza.ActualCost + " | " + "Missing " + String.Join("; ", missingIngredients) + " | " + "Extra " + String.Join("; ", extraIngredients));
         }
     }
 }

@@ -7,11 +7,12 @@ using Unity.Transforms;
 using Unity.Transforms2D;
 using UnityEngine;
 
-public class PizzaIngredientCatchSystem : ComponentSystem
+public class IngredientHitPizzaSystem : ComponentSystem
 {
     private struct PizzaData
     {
         public int Length;
+        public EntityArray entities;
         public ComponentDataArray<Pizza> pizzas;
         [ReadOnly] public SharedComponentDataArray<PizzaGroup> pizzaGroups;
         public ComponentDataArray<Position2D> pizzaPositions;
@@ -46,19 +47,6 @@ public class PizzaIngredientCatchSystem : ComponentSystem
                 if (distance < distanceToCatchIngridient)
                 {
                     handleIngredientHitPizza(ingredientIndex, pizzaIndex);
-
-                    /*
-                    PostUpdateCommands.CreateEntity(BootStrap.IngredientPizzaSpawnArchetype);
-
-                    PostUpdateCommands.SetComponent(new IngredientSpawnOnPizzaData()
-                    {
-                        heading = ingridientData.ingredientHeadings[inIndex].Value,
-                        position = ingridientData.ingredientPositions[inIndex].Value,
-                        // OnPizza = pizzaData.pizzas[index]
-                    });
-
-                    ingridientData.ingredients[inIndex] = ingredient;
-                    */
                 }
             }
         }
@@ -74,8 +62,15 @@ public class PizzaIngredientCatchSystem : ComponentSystem
         PostUpdateCommands.RemoveComponent<TimedLife>(
             ingredientData.entities[ingredientIndex]);
 
-        PostUpdateCommands.AddSharedComponent<PizzaGroup>(
+        PostUpdateCommands.AddSharedComponent(
             ingredientData.entities[ingredientIndex],
             pizzaData.pizzaGroups[pizzaIndex]);
+
+        if (!EntityManager.HasComponent<PizzaCheckFlag>(pizzaData.entities[pizzaIndex]))
+        {
+            PostUpdateCommands.AddComponent(
+                pizzaData.entities[pizzaIndex],
+                new PizzaCheckFlag { });
+        }
     }
 }

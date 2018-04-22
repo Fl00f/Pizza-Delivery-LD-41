@@ -9,13 +9,14 @@ using Unity.Transforms;
 using Unity.Transforms2D;
 using UnityEngine;
 
-public class OnPizzaSystem : ComponentSystem
+public class PizzaCheckSystem : ComponentSystem
 {
     private struct PizzaData
     {
         public int Length;
         public EntityArray Entities;
         public ComponentDataArray<Pizza> Pizza;
+        public ComponentDataArray<PizzaCheckFlag> PizzaCheckFlag;
         [ReadOnly] public SharedComponentDataArray<PizzaGroup> PizzaGroup;
         public ComponentDataArray<PizzaCost> PizzaCost;
         [ReadOnly] public SharedComponentDataArray<IngredientList> PizzaOrder;
@@ -34,6 +35,10 @@ public class OnPizzaSystem : ComponentSystem
     {
         for (var pizzaIndex = 0; pizzaIndex < pizzaData.Length; pizzaIndex++)
         {
+            PostUpdateCommands.RemoveComponent<PizzaCheckFlag>(
+                pizzaData.Entities[pizzaIndex]
+            );
+
             updatePizzaCost(pizzaIndex);
 
             /*
@@ -47,7 +52,6 @@ public class OnPizzaSystem : ComponentSystem
             if (isPizzaComplete(pizzaIndex)) {
                 handlePizzaComplete(pizzaIndex);
             }
-
         }
 
         // Debug.Log("***");

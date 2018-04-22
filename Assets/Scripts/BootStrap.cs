@@ -69,6 +69,7 @@ public class BootStrap
         ArrowLook = GetLookFromPrototype("ArrowRenderPrototype");
         CannonLook = GetLookFromPrototype("IngredientCannonPrototype");
         PizzaLook = GetLookFromPrototype("PizzaPrototype");
+
         SetIngridientPrototypes();
         wasProtoTypesSet = true;
     }

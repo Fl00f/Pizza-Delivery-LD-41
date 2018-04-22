@@ -70,7 +70,7 @@ public class ScoringSystem : ComponentSystem
         if (subtractiveGroup.CalculateLength() == 0) return 0;
 
         subtractiveGroup.SetFilter(new ScoringGroup() { GroupId = index });
-        var subtractScores = additiveGroup.GetComponentDataArray<DeductScore>();
+        var subtractScores = subtractiveGroup.GetComponentDataArray<DeductScore>();
 
         int valueToSubtract = 0;
         for (int i = 0; i < subtractScores.Length; i++)

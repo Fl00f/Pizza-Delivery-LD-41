@@ -28,34 +28,33 @@ public class BootStrap
 
     public static EntityArchetype MouseDataArchetype { get; private set; }
 
-    public static float2 PlayerSpawnPosition;
+    //public static float2 PlayerSpawnPosition;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void Initialize()
-    {
-        var entityManager = World.Active.GetOrCreateManager<EntityManager>();
-        DefineArchetypes(entityManager);
-        PlayerSpawnPosition = new float2(0, 0);
-    }
+    private static Canvas GameOverScreen;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    public static void InitializeWithScene()
+    private static bool wasSceneGOsSet = false;
+    private static bool wasProtoTypesSet = false;
+
+    private static void GetSceneGOs()
     {
+        if (wasSceneGOsSet) return;
+
         var settingsGO = GameObject.Find("Settings");
         GameSettings = settingsGO.GetComponent<Settings>();
-
-        GetPrototypes();
-
-        NewGame();
+        var gameOverGO = GameObject.Find("GameEndCanvas");
+        GameOverScreen = gameOverGO.GetComponent<Canvas>();
+        wasSceneGOsSet = true;
     }
 
     private static void GetPrototypes()
     {
+        if (wasProtoTypesSet) return;
+
         PlayerLook = GetLookFromPrototype("PlayerRenderPrototype");
         ArrowLook = GetLookFromPrototype("ArrowRenderPrototype");
         CannonLook = GetLookFromPrototype("IngredientCannonPrototype");
         PizzaLook = GetLookFromPrototype("PizzaPrototype");
-
+        wasProtoTypesSet = true;
         GetIngridientPrototypes();
     }
 
@@ -65,15 +64,43 @@ public class BootStrap
         IngredientLook = GetLookFromPrototype("IngredientPrototype");
     }
 
-    private static void NewGame()
+    public static void NewGame()
     {
         var entityManager = World.Active.GetOrCreateManager<EntityManager>();
+
+        GetPrototypes();
+        GetSceneGOs();
+
+        DefineArchetypes(entityManager);
+
         CreatePlayer(entityManager);
 
         var mouseEntity = entityManager.CreateEntity(MouseDataArchetype);
 
         CreateCannons(entityManager);
         CreatePizzas(entityManager);
+    }
+
+    public static void GameOver()
+    {
+        GameOverScreen.enabled = true;
+
+        foreach (var item in World.Active.BehaviourManagers)
+        {
+            item.Enabled = false;
+        }
+        var entityManager = World.Active.GetOrCreateManager<EntityManager>();
+        entityManager.DestroyEntity(entityManager.GetAllEntities());
+    }
+
+    public static void RestartGame()
+    {
+        GameOverScreen.enabled = false;
+        NewGame();
+        foreach (var item in World.Active.BehaviourManagers)
+        {
+            item.Enabled = true;
+        }
     }
 
     private static void DefineArchetypes(EntityManager entityManager)
@@ -115,7 +142,7 @@ public class BootStrap
         Entity playerEntity = entityManager.CreateEntity(PlayerArchetype);
         entityManager.SetComponentData(playerEntity, new PlayerInput { FireCooldown = 0 });
 
-        entityManager.SetComponentData(playerEntity, new Position2D { Value = PlayerSpawnPosition });
+        entityManager.SetComponentData(playerEntity, new Position2D { Value = new float2(GameSettings.PlayerSpawnPosition.x, GameSettings.PlayerSpawnPosition.y) });
         entityManager.SetComponentData(playerEntity, new Heading2D { Value = new float2(0.0f, 1.0f) });
         entityManager.SetComponentData(playerEntity, new PlayerMoveSpeed { speed = GameSettings.PlayerMovementSpeed });
 
@@ -156,7 +183,7 @@ public class BootStrap
         //***********************************************************
 
         Entity pizzaLeft = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetComponentData(pizzaLeft, new Pizza{ PizzaId = 1 });
+        entityManager.SetComponentData(pizzaLeft, new Pizza { PizzaId = 1 });
         entityManager.SetComponentData(pizzaLeft, new Position2D { Value = new float2(-2, 1) });
         entityManager.SetComponentData(pizzaLeft, new Heading2D { Value = new float2(0, -1) });
 

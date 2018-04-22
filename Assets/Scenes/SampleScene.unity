@@ -996,7 +996,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 436265289}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1347,8 +1347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedData:
-    mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    material: {fileID: 2100000, guid: 0710bcefc1faf35408130c28303bbc1c, type: 2}
+    mesh: {fileID: 4300000, guid: 1df37a254924a7444909838c4af7e44f, type: 3}
+    material: {fileID: 2100000, guid: 9df21bfc72758b84c95abbde67bb4ea0, type: 2}
     castShadows: 0
     receiveShadows: 1
 --- !u!114 &687033633
@@ -1997,8 +1997,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedData:
-    mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    material: {fileID: 2100000, guid: 4c68801ef79496042a763f762ff438ab, type: 2}
+    mesh: {fileID: 4300006, guid: 1b7945602ded3ec43804b120aa9ed037, type: 3}
+    material: {fileID: 2100000, guid: 1cbc94e1e3ae9ef49aabde64feb5b073, type: 2}
     castShadows: 0
     receiveShadows: 0
 --- !u!114 &1068980507
@@ -2457,7 +2457,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2e5b2603daec64948a183c78b5a14b04, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.62
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2e5b2603daec64948a183c78b5a14b04, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2540,7 +2540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedData:
-    mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    mesh: {fileID: 4300000, guid: 79b670fe3a4f0b64c8a5935ea015a929, type: 3}
     material: {fileID: 2100000, guid: 6e2ff8ee30c872e4f9669ab10a8ec312, type: 2}
     castShadows: 0
     receiveShadows: 1

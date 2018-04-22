@@ -13,10 +13,16 @@ public class BootStrap
 {
     public static Settings GameSettings;
 
+    #region IngredientLooks
+
+    public static List<MeshInstanceRenderer> IngredientLooks;
+    public static MeshInstanceRenderer IngredientDefaultLook;
+
+    #endregion IngredientLooks
+
     public static MeshInstanceRenderer PlayerLook;
     public static MeshInstanceRenderer ArrowLook;
     public static MeshInstanceRenderer CannonLook;
-    public static MeshInstanceRenderer IngredientLook;
     public static MeshInstanceRenderer PizzaLook;
 
     public static EntityArchetype PlayerArchetype { get; private set; }
@@ -63,14 +69,34 @@ public class BootStrap
         ArrowLook = GetLookFromPrototype("ArrowRenderPrototype");
         CannonLook = GetLookFromPrototype("IngredientCannonPrototype");
         PizzaLook = GetLookFromPrototype("PizzaPrototype");
-        GetIngridientPrototypes();
+        SetIngridientPrototypes();
         wasProtoTypesSet = true;
     }
 
-    private static void GetIngridientPrototypes()
+    public static MeshInstanceRenderer GetIngredientLook(int ingredientType)
     {
-        //Default for testing
-        IngredientLook = GetLookFromPrototype("IngredientPrototype");
+        if (!(ingredientType > -1 && ingredientType < IngredientLooks.Count))
+        {
+            return IngredientDefaultLook;
+        }
+        return IngredientLooks[ingredientType];
+    }
+
+    private static void SetIngridientPrototypes()
+    {
+        IngredientDefaultLook = GetLookFromPrototype(nameof(IngredientDefaultLook)); //Default for testing
+
+        if (IngredientLooks == null)
+        {
+            IngredientLooks = new List<MeshInstanceRenderer>() {
+            GetLookFromPrototype("IngredientPeperoniLook"),
+            GetLookFromPrototype("IngredientOnionLook"),
+            GetLookFromPrototype("IngredientChickenLook"),
+            GetLookFromPrototype("IngredientCheeseLook"),
+            GetLookFromPrototype("IngredientSausageLook"),
+            GetLookFromPrototype("IngredientMushroomLook")
+        };
+        }
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -256,6 +282,7 @@ public class BootStrap
 
     private static MeshInstanceRenderer GetLookFromPrototype(string protoName)
     {
+        //Can fail if not named right
         var proto = GameObject.Find(protoName);
         var result = proto.GetComponent<MeshInstanceRendererComponent>().Value;
         UnityEngine.Object.Destroy(proto);

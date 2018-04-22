@@ -29,7 +29,7 @@ public class IngredientSpawnSystem : ComponentSystem
 
             em.RemoveComponent<IngridientSpawnData>(ingridientEntity);
             em.AddComponent(ingridientEntity, new IngredientJustSpawn() { });
-            em.AddComponent(ingridientEntity, new Ingredient() { IngredientType = Random.Range(0, 6) });
+            em.AddComponent(ingridientEntity, new Ingredient() { IngredientType = spawnStuffs.SpawnData[i].IngridientType });
             em.AddComponent(ingridientEntity, new TimedLife() { TimeToLive = BootStrap.GameSettings.FlyingIngredientLifeTime });
             em.AddComponent(ingridientEntity, new MoveSpeed() { speed = BootStrap.GameSettings.FlyingIngredientSpeed });
             em.AddComponent(ingridientEntity, sd.spawnPosition);

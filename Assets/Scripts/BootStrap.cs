@@ -28,7 +28,10 @@ public class BootStrap
     public static EntityArchetype PizzaArchetype { get; private set; }
 
     public static EntityArchetype MouseDataArchetype { get; private set; }
+
     public static EntityArchetype ScoringArchetype { get; private set; }
+    public static EntityArchetype AddScoreArchetype { get; private set; }
+    public static EntityArchetype SubtractScoreArchetype { get; private set; }
 
     private static Canvas GameOverScreen;
     private static Text ScoringText;
@@ -173,6 +176,8 @@ public class BootStrap
                                                            typeof(TransformMatrix));
 
         ScoringArchetype = entityManager.CreateArchetype(typeof(ScoreKeeper));
+        AddScoreArchetype = entityManager.CreateArchetype(typeof(AddScore));
+        SubtractScoreArchetype = entityManager.CreateArchetype(typeof(DeductScore));
     }
 
     private static void CreatePlayer(EntityManager entityManager)
@@ -212,7 +217,7 @@ public class BootStrap
     private static void CreatePizzas(EntityManager entityManager)
     {
         Entity pizzaRight = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetComponentData(pizzaRight, new Pizza { PizzaGroup = new PizzaGroup { PizzaId = 0} });
+        entityManager.SetComponentData(pizzaRight, new Pizza { PizzaGroup = new PizzaGroup { PizzaId = 0 } });
         entityManager.SetComponentData(pizzaRight, new Position2D { Value = new float2(2, 1) });
         entityManager.SetComponentData(pizzaRight, new Heading2D { Value = new float2(0, -1) });
 
@@ -239,6 +244,11 @@ public class BootStrap
         Entity scorer = entityManager.CreateEntity(ScoringArchetype);
         entityManager.SetComponentData(scorer, new ScoreKeeper() { Score = 0 });
         entityManager.AddSharedComponentData(scorer, new ScoringGroup() { GroupId = 0 });
+
+        //*******
+        var ent = entityManager.CreateEntity(AddScoreArchetype);
+        entityManager.SetComponentData(ent, new AddScore { Value = 100 }); //Starting amount
+        entityManager.AddSharedComponentData(ent, new ScoringGroup { GroupId = 0 });
     }
 
     private static MeshInstanceRenderer GetLookFromPrototype(string protoName)

@@ -8,6 +8,7 @@ using System.Linq;
 public class ScoringSystem : ComponentSystem
 {
     private Text ScoreText;
+    private string defaultScoringText = "Cash left $";
 
     private ComponentGroup scoreingGroup;
     private ComponentGroup additiveGroup;
@@ -31,8 +32,8 @@ public class ScoringSystem : ComponentSystem
 
             if (scoreingGroup.CalculateLength() == 0) return;
 
-            int valueToAdd = DoAddition(index);
-            int valueToSubtract = DoSubtraction(index);
+            float valueToAdd = DoAddition(index);
+            float valueToSubtract = DoSubtraction(index);
 
             if (valueToAdd + valueToSubtract == 0) return;
 
@@ -45,11 +46,11 @@ public class ScoringSystem : ComponentSystem
                 scoreKeepers[i] = scoreKeeper;
             }
 
-            ScoreText.text = scoreKeepers[index].Score.ToString();
+            ScoreText.text = defaultScoringText + scoreKeepers[index].Score.ToString("C2");
         }
     }
 
-    private int DoAddition(int index)
+    private float DoAddition(int index)
     {
         if (additiveGroup.CalculateLength() == 0) return 0;
 
@@ -65,7 +66,7 @@ public class ScoringSystem : ComponentSystem
         return valueToAdd;
     }
 
-    private int DoSubtraction(int index)
+    private float DoSubtraction(int index)
     {
         if (subtractiveGroup.CalculateLength() == 0) return 0;
 

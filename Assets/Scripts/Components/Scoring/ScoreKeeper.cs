@@ -5,5 +5,5 @@ using UnityEngine;
 
 public struct ScoreKeeper : IComponentData
 {
-    public int Score;
+    public float Score;
 }

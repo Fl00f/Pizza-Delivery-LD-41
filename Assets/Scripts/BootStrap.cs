@@ -135,13 +135,13 @@ public class BootStrap
         }
     }
 
-    private static void SetPizzaOrderUIIngredients(string ingredients, int pizzaOrderUIIndex)
+    public static void SetPizzaOrderUIIngredients(List<int> ingredientTypes, int pizzaOrderUIIndex)
     {
         if (pizzaOrderUIIndex >= 0 && pizzaOrderUIIndex < PizzaOrderUIs.Length)
-            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetIngredientsListText(ingredients);
+            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetIngredientsListText(string.Join(", ", ingredientTypes));
     }
 
-    private static void SetPizzaOrderUIPrice(float price, int pizzaOrderUIIndex)
+    public static void SetPizzaOrderUIPrice(float price, int pizzaOrderUIIndex)
     {
         if (pizzaOrderUIIndex >= 0 && pizzaOrderUIIndex < PizzaOrderUIs.Length)
             PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetCostText($"Price: {price.ToString("C2")}");
@@ -191,8 +191,9 @@ public class BootStrap
         {
             item.Enabled = true;
         }
-        SetPizzaOrderUIPrice(34234, 2222);
-        SetPizzaOrderUIPrice(66666, 0);
+
+        SetPizzaOrderUIPrice(0, 0);
+        SetPizzaOrderUIPrice(0, 1);
     }
 
     public static void GameOver()
@@ -295,7 +296,7 @@ public class BootStrap
         Entity pizzaRight = entityManager.CreateEntity();
         entityManager.AddSharedComponentData(pizzaRight, new PizzaSpawnData
         {
-            PizzaGroup = new PizzaGroup { PizzaId = 0 },
+            PizzaGroup = new PizzaGroup { PizzaId = 1 },
             Position = new Position2D { Value = new float2(2, 1) },
             IngredientList = pizzaRightIngredients
         });
@@ -308,7 +309,7 @@ public class BootStrap
         Entity pizzaLeft = entityManager.CreateEntity();
         entityManager.AddSharedComponentData(pizzaLeft, new PizzaSpawnData
         {
-            PizzaGroup = new PizzaGroup { PizzaId = 1 },
+            PizzaGroup = new PizzaGroup { PizzaId = 0 },
             Position = new Position2D { Value = new float2(-2, 1) },
             IngredientList = pizzaLeftIngredients
         });

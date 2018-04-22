@@ -37,6 +37,8 @@ public class PizzaSpawnSystem : ComponentSystem
             PostUpdateCommands.AddSharedComponent(spawnedEntity, BootStrap.PizzaLook);
         
             PostUpdateCommands.AddComponent(spawnedEntity, getPizzaCost(spawnData));
+
+            BootStrap.SetPizzaOrderUIIngredients(spawnData.IngredientList, spawnData.PizzaGroup.PizzaId);
         }
     }
 

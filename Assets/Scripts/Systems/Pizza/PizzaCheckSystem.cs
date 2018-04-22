@@ -98,7 +98,6 @@ public class PizzaCheckSystem : ComponentSystem
             Position = pizzaPosition,
             IngredientList = pizzaIngredients
         });
-
     }
 
     private bool isPizzaComplete (int pizzaIndex) {
@@ -123,6 +122,12 @@ public class PizzaCheckSystem : ComponentSystem
 
         pizzaCost.ActualCost = actualCost;
         pizzaData.PizzaCost[pizzaIndex] = pizzaCost;
+                    
+        // Legacy
+        BootStrap.SetPizzaOrderUIPrice(
+            (float)pizzaCost.ActualCost / 100,
+            pizzaData.PizzaGroup[pizzaIndex].PizzaId
+        );
     }
 
     private List<int> getIngredientsOnPizza (int pizzaIndex) {

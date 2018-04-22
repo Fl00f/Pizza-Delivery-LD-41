@@ -39,8 +39,6 @@ public class IngredientHitPizzaSystem : ComponentSystem
         {
             for (int ingredientIndex = 0; ingredientIndex < ingredientData.Length; ingredientIndex++)
             {
-                // Ingredient ingredient = ingridientData.ingredients[inIndex];
-
                 float2 delta = pizzaData.pizzaPositions[pizzaIndex].Value - ingredientData.ingredientPositions[ingredientIndex].Value;
                 float distance = math.sqrt(math.pow(delta.x, 2) + math.pow(delta.y, 2));
 
@@ -65,12 +63,7 @@ public class IngredientHitPizzaSystem : ComponentSystem
         PostUpdateCommands.AddSharedComponent(
             ingredientData.entities[ingredientIndex],
             pizzaData.pizzaGroups[pizzaIndex]);
-
-        if (!EntityManager.HasComponent<PizzaCheckFlag>(pizzaData.entities[pizzaIndex]))
-        {
-            PostUpdateCommands.AddComponent(
-                pizzaData.entities[pizzaIndex],
-                new PizzaCheckFlag { });
-        }
+        
+        PizzaCheckSystem.runPizzaCheck = true;
     }
 }

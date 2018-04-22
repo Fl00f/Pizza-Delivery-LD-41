@@ -16,7 +16,6 @@ public class PizzaCheckSystem : ComponentSystem
         public int Length;
         public EntityArray Entities;
         public ComponentDataArray<Pizza> Pizza;
-        public ComponentDataArray<PizzaCheckFlag> PizzaCheckFlag;
         [ReadOnly] public SharedComponentDataArray<PizzaGroup> PizzaGroup;
         public ComponentDataArray<PizzaCost> PizzaCost;
         [ReadOnly] public SharedComponentDataArray<IngredientList> PizzaOrder;
@@ -26,6 +25,8 @@ public class PizzaCheckSystem : ComponentSystem
     [Inject] PizzaData pizzaData;
     ComponentGroup IngredientData;
 
+    public static bool runPizzaCheck = false;
+
     protected override void OnCreateManager(int capacity)
     {
         IngredientData = GetComponentGroup(typeof(Ingredient), typeof(PizzaGroup));
@@ -33,12 +34,12 @@ public class PizzaCheckSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+        if (!runPizzaCheck) {
+            return;
+        }
+
         for (var pizzaIndex = 0; pizzaIndex < pizzaData.Length; pizzaIndex++)
         {
-            PostUpdateCommands.RemoveComponent<PizzaCheckFlag>(
-                pizzaData.Entities[pizzaIndex]
-            );
-
             updatePizzaCost(pizzaIndex);
 
             /*
@@ -54,6 +55,7 @@ public class PizzaCheckSystem : ComponentSystem
             }
         }
 
+        runPizzaCheck = false;
         // Debug.Log("***");
     }
 

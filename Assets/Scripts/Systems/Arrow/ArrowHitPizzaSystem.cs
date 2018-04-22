@@ -18,7 +18,7 @@ public class ArrowHitPizzaSystem : ComponentSystem
     private struct ArrowData
     {
         public int Length;
-        public EntityArray Entities;
+        public EntityArray entities;
         public ComponentDataArray<Arrow> arrows;
         public ComponentDataArray<Position2D> arrowPositions;
     }
@@ -39,7 +39,7 @@ public class ArrowHitPizzaSystem : ComponentSystem
 
                 if (distance < distanceToCatchArrow)
                 {
-                    PostUpdateCommands.DestroyEntity(arrowData.Entities[arrowIndex]);
+                    PostUpdateCommands.DestroyEntity(arrowData.entities[arrowIndex]);
                 }
             }
         }

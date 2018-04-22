@@ -12,6 +12,7 @@ public class OnPizzaSystem : ComponentSystem
     {
         public int Length;
         public ComponentDataArray<Pizza> Pizza;
+        [ReadOnly] public SharedComponentDataArray<PizzaGroup> PizzaGroup;
         [ReadOnly] public SharedComponentDataArray<PizzaOrder> PizzaOrder;
     };
 
@@ -20,7 +21,7 @@ public class OnPizzaSystem : ComponentSystem
 
     protected override void OnCreateManager(int capacity)
     {
-        onPizzaIngredients = GetComponentGroup(typeof(OnPizzaIngredient), typeof(PizzaGroup));
+        onPizzaIngredients = GetComponentGroup(typeof(Ingredient), typeof(PizzaGroup));
     }
 
     protected override void OnUpdate()
@@ -28,12 +29,12 @@ public class OnPizzaSystem : ComponentSystem
         for (var p = 0; p < pizzaAssemblyData.Length; p++)
         {
             List<int> currentIngredients = new List<int>();
-            onPizzaIngredients.SetFilter(pizzaAssemblyData.Pizza[p].PizzaGroup);
+            onPizzaIngredients.SetFilter(pizzaAssemblyData.PizzaGroup[p]);
 
             var length = onPizzaIngredients.CalculateLength();
             for (int i = 0; i < length; i++)
             {
-                currentIngredients.Add(onPizzaIngredients.GetComponentDataArray<OnPizzaIngredient>()[i].IngedientType);
+                currentIngredients.Add(onPizzaIngredients.GetComponentDataArray<Ingredient>()[i].IngredientType);
             }
 
             PizzaOrder pizzaOrder = pizzaAssemblyData.PizzaOrder[p];
@@ -50,19 +51,21 @@ public class OnPizzaSystem : ComponentSystem
             pizza.ActualCost = actualCost;
             pizzaAssemblyData.Pizza[p] = pizza;
 
+            PizzaGroup pizzaGroup = pizzaAssemblyData.PizzaGroup[p];
+
             if (missingIngredients.Count == 0) {
                 // Pizza is done.
-                Debug.Log("PIZZA DONE - " + pizza.PizzaGroup.PizzaId + ": " + pizza.ExpectedCost + " | " + pizza.ActualCost + " | " + "Missing " + String.Join("; ", missingIngredients) + " | " + "Extra " + String.Join("; ", extraIngredients));
+                Debug.Log("PIZZA DONE - " + pizzaGroup.PizzaId + ": " + pizza.ExpectedCost + " | " + pizza.ActualCost + " | " + "Missing " + String.Join("; ", missingIngredients) + " | " + "Extra " + String.Join("; ", extraIngredients));
 
                 // Update global score.
 
                 // Delete this Pizza.
                 // TODO: Move to a pizza destroyer system.
-                for (int i = 0; i < length; i++) {
-                    PostUpdateCommands.DestroyEntity(onPizzaIngredients.GetEntityArray()[i]);
-                }
+                //for (int i = 0; i < length; i++) {
+                //    PostUpdateCommands.DestroyEntity(onPizzaIngredients.GetEntityArray()[i]);
+                //}
 
-                // Create new Pizza.
+                // Create new PizzaOrder & Pizza.
 
             }
 

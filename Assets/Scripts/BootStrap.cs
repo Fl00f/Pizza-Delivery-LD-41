@@ -151,6 +151,9 @@ public class BootStrap
         entityManager.SetComponentData(pizzaRight, new Position2D { Value = new float2(2, 1) });
         entityManager.SetComponentData(pizzaRight, new Heading2D { Value = new float2(0, -1) });
 
+        List<int> pizzaRightIngredients = new List<int>();
+        pizzaRightIngredients.Add(0);
+        entityManager.AddSharedComponentData(pizzaRight, new PizzaOrder { IngredientType = pizzaRightIngredients } );
         entityManager.AddSharedComponentData(pizzaRight, PizzaLook);
 
         //***********************************************************
@@ -160,6 +163,9 @@ public class BootStrap
         entityManager.SetComponentData(pizzaLeft, new Position2D { Value = new float2(-2, 1) });
         entityManager.SetComponentData(pizzaLeft, new Heading2D { Value = new float2(0, -1) });
 
+        List<int> pizzaLeftIngredients = new List<int>();
+        pizzaLeftIngredients.Add(1);
+        entityManager.AddSharedComponentData(pizzaLeft, new PizzaOrder { IngredientType = pizzaLeftIngredients });
         entityManager.AddSharedComponentData(pizzaLeft, PizzaLook);
     }
 

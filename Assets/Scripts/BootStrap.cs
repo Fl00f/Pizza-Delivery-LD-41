@@ -138,7 +138,8 @@ public class BootStrap
     public static void SetPizzaOrderUIIngredients(List<int> ingredientTypes, int pizzaOrderUIIndex)
     {
         string[] ingredientNames = new string[ingredientTypes.Count];
-        for (int i = 0; i < ingredientTypes.Count; i++) {
+        for (int i = 0; i < ingredientTypes.Count; i++)
+        {
             ingredientNames[i] = IngredientsData[ingredientTypes[i]].IngredientName;
         }
 
@@ -186,7 +187,7 @@ public class BootStrap
 
         CreatePlayer(entityManager);
 
-        // var mouseEntity = entityManager.CreateEntity(MouseDataArchetype);
+        var mouseEntity = entityManager.CreateEntity(MouseDataArchetype);
 
         CreateCannons(entityManager);
         CreatePizzas(entityManager);

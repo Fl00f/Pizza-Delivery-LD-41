@@ -5,6 +5,4 @@ using UnityEngine;
 
 public struct Pizza : IComponentData
 {
-    public int ExpectedCost;
-    public int ActualCost;
 }

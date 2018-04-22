@@ -45,8 +45,6 @@ public class ArrowInterceptSystem : ComponentSystem
 
                 if (distance < distanceToCatchIngridient)
                 {
-                    //ingredient.TimeToLive = 5;
-
                     ingredientData.ingredients[inIndex] = ingredient;
 
                     Heading2D arrowHeading = arrowData.arrowHeadings[index];

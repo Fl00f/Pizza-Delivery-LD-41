@@ -238,27 +238,29 @@ public class BootStrap
 
     private static void CreatePizzas(EntityManager entityManager)
     {
-        Entity pizzaRight = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetSharedComponentData(pizzaRight, new PizzaGroup { PizzaId = 0 });
-        entityManager.SetComponentData(pizzaRight, new Position2D { Value = new float2(2, 1) });
-        entityManager.SetComponentData(pizzaRight, new Heading2D { Value = new float2(0, -1) });
-
         List<int> pizzaRightIngredients = new List<int>();
         pizzaRightIngredients.Add(0);
-        entityManager.AddSharedComponentData(pizzaRight, new PizzaOrder { IngredientType = pizzaRightIngredients });
-        entityManager.AddSharedComponentData(pizzaRight, PizzaLook);
+
+        Entity pizzaRight = entityManager.CreateEntity();
+        entityManager.AddSharedComponentData(pizzaRight, new PizzaSpawnData
+        {
+            PizzaId = 0,
+            Position = new Position2D { Value = new float2(2, 1) },
+            IngredientList = pizzaRightIngredients
+        });
 
         //***********************************************************
 
-        Entity pizzaLeft = entityManager.CreateEntity(PizzaArchetype);
-        entityManager.SetSharedComponentData(pizzaLeft, new PizzaGroup { PizzaId = 1 });
-        entityManager.SetComponentData(pizzaLeft, new Position2D { Value = new float2(-2, 1) });
-        entityManager.SetComponentData(pizzaLeft, new Heading2D { Value = new float2(0, -1) });
-
         List<int> pizzaLeftIngredients = new List<int>();
         pizzaLeftIngredients.Add(1);
-        entityManager.AddSharedComponentData(pizzaLeft, new PizzaOrder { IngredientType = pizzaLeftIngredients });
-        entityManager.AddSharedComponentData(pizzaLeft, PizzaLook);
+
+        Entity pizzaLeft = entityManager.CreateEntity();
+        entityManager.AddSharedComponentData(pizzaLeft, new PizzaSpawnData
+        {
+            PizzaId = 0,
+            Position = new Position2D { Value = new float2(-2, 1) },
+            IngredientList = pizzaLeftIngredients
+        });
     }
 
     private static void CreateScoreKeeper(EntityManager entityManager)

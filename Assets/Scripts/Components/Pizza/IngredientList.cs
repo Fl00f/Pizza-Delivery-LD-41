@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-public struct PizzaOrder : ISharedComponentData
+public struct IngredientList : ISharedComponentData
 {
-    public List<int> IngredientType;
+    public List<int> Value;
 }

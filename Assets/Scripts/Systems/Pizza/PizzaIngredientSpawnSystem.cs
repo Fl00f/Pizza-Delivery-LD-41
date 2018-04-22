@@ -33,7 +33,7 @@ public class PizzaIngredientSpawnSystem : ComponentSystem
             PostUpdateCommands.AddComponent(new Position2D { Value = position });
             PostUpdateCommands.AddComponent(default(TransformMatrix));
 
-            PostUpdateCommands.AddSharedComponent(BootStrap.IngredientLook); //TODO: Set by ingredient type
+            PostUpdateCommands.AddSharedComponent(BootStrap.IngredientDefaultLook); //TODO: Set by ingredient type
         }
     }
 }

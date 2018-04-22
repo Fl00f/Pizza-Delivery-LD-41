@@ -13,10 +13,21 @@ public class BootStrap
 {
     public static Settings GameSettings;
 
+    #region IngredientLooks
+
+    public static MeshInstanceRenderer IngredientPeperoniLook;
+    public static MeshInstanceRenderer IngredientOnionLook;
+    public static MeshInstanceRenderer IngredientChickenLook;
+    public static MeshInstanceRenderer IngredientCheeseLook;
+    public static MeshInstanceRenderer IngredientSausageLook;
+    public static MeshInstanceRenderer IngredientMushroomLook;
+
+    #endregion IngredientLooks
+
     public static MeshInstanceRenderer PlayerLook;
     public static MeshInstanceRenderer ArrowLook;
     public static MeshInstanceRenderer CannonLook;
-    public static MeshInstanceRenderer IngredientLook;
+    public static MeshInstanceRenderer IngredientDefaultLook;
     public static MeshInstanceRenderer PizzaLook;
 
     public static EntityArchetype PlayerArchetype { get; private set; }
@@ -70,7 +81,14 @@ public class BootStrap
     private static void GetIngridientPrototypes()
     {
         //Default for testing
-        IngredientLook = GetLookFromPrototype("IngredientPrototype");
+        IngredientDefaultLook = GetLookFromPrototype(nameof(IngredientDefaultLook));
+
+        IngredientPeperoniLook = GetLookFromPrototype(nameof(IngredientPeperoniLook));
+        IngredientOnionLook = GetLookFromPrototype(nameof(IngredientOnionLook));
+        IngredientChickenLook = GetLookFromPrototype(nameof(IngredientChickenLook));
+        IngredientCheeseLook = GetLookFromPrototype(nameof(IngredientCheeseLook));
+        IngredientSausageLook = GetLookFromPrototype(nameof(IngredientSausageLook));
+        IngredientMushroomLook = GetLookFromPrototype(nameof(IngredientMushroomLook));
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]

@@ -34,7 +34,7 @@ public class IngredientSpawnSystem : ComponentSystem
 
             em.AddComponent(ingridientEntity, default(TransformMatrix));
 
-            em.AddSharedComponent(ingridientEntity, BootStrap.IngredientLook);
+            em.AddSharedComponent(ingridientEntity, BootStrap.IngredientDefaultLook);
         }
     }
 }

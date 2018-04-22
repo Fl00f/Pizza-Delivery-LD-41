@@ -149,7 +149,7 @@ public class BootStrap
     public static void SetPizzaOrderUIPrice(float price, int pizzaOrderUIIndex)
     {
         if (pizzaOrderUIIndex >= 0 && pizzaOrderUIIndex < PizzaOrderUIs.Length)
-            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetCostText($"Price: {price.ToString("C2")}");
+            PizzaOrderUIs[pizzaOrderUIIndex].GetComponent<PizzaOrderUI>().SetCostText($"Price: {price}");
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -199,6 +199,8 @@ public class BootStrap
 
         SetPizzaOrderUIPrice(0, 0);
         SetPizzaOrderUIPrice(0, 1);
+
+        //AddScore(66);
     }
 
     public static void GameOver()
@@ -339,6 +341,22 @@ public class BootStrap
         var result = proto.GetComponent<MeshInstanceRendererComponent>().Value;
         UnityEngine.Object.Destroy(proto);
         return result;
+    }
+
+    public static void AddScore(int score)
+    {
+        var entityManager = World.Active.GetOrCreateManager<EntityManager>();
+        var entity = entityManager.CreateEntity(AddScoreArchetype);
+        entityManager.SetComponentData(entity, new AddScore { Value = score });
+        entityManager.AddSharedComponentData(entity, new ScoringGroup { GroupId = 0 });
+    }
+
+    public static void SubtractScore(int score)
+    {
+        var entityManager = World.Active.GetOrCreateManager<EntityManager>();
+        var entity = entityManager.CreateEntity(SubtractScoreArchetype);
+        entityManager.SetComponentData(entity, new DeductScore { Value = score });
+        entityManager.AddSharedComponentData(entity, new ScoringGroup { GroupId = 0 });
     }
 
     public struct IngredientData

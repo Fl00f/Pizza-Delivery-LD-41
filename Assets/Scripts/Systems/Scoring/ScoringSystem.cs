@@ -8,7 +8,7 @@ using System.Linq;
 public class ScoringSystem : ComponentSystem
 {
     private Text ScoreText;
-    private string defaultScoringText = "Cash left $";
+    private string defaultScoringText = "Cash left ";
 
     private ComponentGroup scoreingGroup;
     private ComponentGroup additiveGroup;

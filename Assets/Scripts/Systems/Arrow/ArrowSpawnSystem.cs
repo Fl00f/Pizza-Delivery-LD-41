@@ -7,7 +7,7 @@ using Unity.Transforms;
 using Unity.Transforms2D;
 using UnityEngine;
 
-public class ShotSpawnSystem : ComponentSystem
+public class ArrowSpawnSystem : ComponentSystem
 {
     public struct SpawnStuffs
     {

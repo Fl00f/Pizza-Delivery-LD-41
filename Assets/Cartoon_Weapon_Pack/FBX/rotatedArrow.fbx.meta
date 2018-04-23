@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: 05abac155111e1b42abe7c1135693013
+guid: c4822f398956a074b82b70435f77e352
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: 07_-_Default
-    2300000: //RootNode
-    3300000: //RootNode
+    100000: Arrow
+    100002: Camera
+    100004: Lamp
+    100006: //RootNode
+    400000: Arrow
+    400002: Camera
+    400004: Lamp
+    400006: //RootNode
+    2000000: Camera
+    2100000: 07 - Default
+    2300000: Arrow
+    3300000: Arrow
     4300000: Arrow
-    7400000: Default Take
-    9500000: //RootNode
+    10800000: Lamp
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -42,7 +48,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -86,7 +92,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

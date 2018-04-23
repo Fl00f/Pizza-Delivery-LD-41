@@ -448,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedData:
     mesh: {fileID: 4300000, guid: f146753048df47a489d094c6e46d0a00, type: 3}
-    material: {fileID: 2100000, guid: 8c94470acf517be419fe0abe2cc53b79, type: 2}
+    material: {fileID: 2100000, guid: dd4330fb196ead84ea9d14e6bbbe8ed5, type: 2}
     castShadows: 0
     receiveShadows: 1
 --- !u!114 &223339665
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedData:
     mesh: {fileID: 4300000, guid: d769a7102b90c5645a6dfa3efaeafcbb, type: 3}
-    material: {fileID: 2100000, guid: 8c94470acf517be419fe0abe2cc53b79, type: 2}
+    material: {fileID: 2100000, guid: dd4330fb196ead84ea9d14e6bbbe8ed5, type: 2}
     castShadows: 0
     receiveShadows: 1
 --- !u!114 &371280698
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedData:
     mesh: {fileID: 4300000, guid: a65bc41f54f5afb478ec22c22d371692, type: 3}
-    material: {fileID: 2100000, guid: 8c94470acf517be419fe0abe2cc53b79, type: 2}
+    material: {fileID: 2100000, guid: dd4330fb196ead84ea9d14e6bbbe8ed5, type: 2}
     castShadows: 0
     receiveShadows: 1
 --- !u!114 &507921548
@@ -1304,7 +1304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedData:
     mesh: {fileID: 4300000, guid: 310f9adb29639fa4f926ddbb52461942, type: 3}
-    material: {fileID: 2100000, guid: 8c94470acf517be419fe0abe2cc53b79, type: 2}
+    material: {fileID: 2100000, guid: dd4330fb196ead84ea9d14e6bbbe8ed5, type: 2}
     castShadows: 0
     receiveShadows: 1
 --- !u!114 &660987454
@@ -2214,7 +2214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedData:
     mesh: {fileID: 4300000, guid: ba6ceeaf951f3f143afe3555f8a977ad, type: 3}
-    material: {fileID: 2100000, guid: 8c94470acf517be419fe0abe2cc53b79, type: 2}
+    material: {fileID: 2100000, guid: dd4330fb196ead84ea9d14e6bbbe8ed5, type: 2}
     castShadows: 0
     receiveShadows: 1
 --- !u!114 &1226351785
@@ -2365,7 +2365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedData:
     mesh: {fileID: 4300002, guid: 56be052822e0d8d459a1d331a09d5f8a, type: 3}
-    material: {fileID: 2100000, guid: 8c94470acf517be419fe0abe2cc53b79, type: 2}
+    material: {fileID: 2100000, guid: dd4330fb196ead84ea9d14e6bbbe8ed5, type: 2}
     castShadows: 0
     receiveShadows: 1
 --- !u!114 &1434203600

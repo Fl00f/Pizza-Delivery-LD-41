@@ -22,8 +22,8 @@ public class PizzaCheckSystem : ComponentSystem
         public ComponentDataArray<Position2D> Position;
     };
 
-    [Inject] PizzaData pizzaData;
-    ComponentGroup IngredientData;
+    [Inject] private PizzaData pizzaData;
+    private ComponentGroup IngredientData;
 
     public static bool runPizzaCheck = false;
 
@@ -34,7 +34,8 @@ public class PizzaCheckSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        if (!runPizzaCheck) {
+        if (!runPizzaCheck)
+        {
             return;
         }
 
@@ -50,7 +51,8 @@ public class PizzaCheckSystem : ComponentSystem
             Debug.Log("PIZZA STATE - " + pizzaGroup.PizzaId + ": " + String.Join("; ", getIngredientsOnPizza(pizzaIndex)));
             */
 
-            if (isPizzaComplete(pizzaIndex)) {
+            if (isPizzaComplete(pizzaIndex))
+            {
                 handlePizzaComplete(pizzaIndex);
             }
         }
@@ -59,16 +61,20 @@ public class PizzaCheckSystem : ComponentSystem
         // Debug.Log("***");
     }
 
-    private void handlePizzaComplete (int pizzaIndex) {
+    private void handlePizzaComplete(int pizzaIndex)
+    {
         Entity pizzaEntity = pizzaData.Entities[pizzaIndex];
         PizzaGroup pizzaGroup = pizzaData.PizzaGroup[pizzaIndex];
         Position2D pizzaPosition = pizzaData.Position[pizzaIndex];
         PizzaCost pizzaCost = pizzaData.PizzaCost[pizzaIndex];
 
         // Pizza is done.
-        Debug.Log("PIZZA DONE - " + pizzaGroup.PizzaId + ": " + pizzaCost.OrderCost+ " | " + pizzaCost.ActualCost);
+        Debug.Log("PIZZA DONE - " + pizzaGroup.PizzaId + ": " + pizzaCost.OrderCost + " | " + pizzaCost.ActualCost);
 
         // Update global score.
+        PostUpdateCommands.CreateEntity();
+        PostUpdateCommands.AddComponent(new DeductScore { Value = pizzaCost.ActualCost });
+        PostUpdateCommands.AddSharedComponent(new ScoringGroup { GroupId = 0 });
 
         // Delete this Pizza.
         MoveSpeed toWindow = new MoveSpeed { speed = BootStrap.GameSettings.ArrowSpeed };
@@ -79,7 +85,8 @@ public class PizzaCheckSystem : ComponentSystem
         PostUpdateCommands.RemoveComponent<PizzaGroup>(pizzaEntity);
 
         // TODO: While ingredients are flying off with the pizza, arrows could hit them.
-        for (int i = 0; i < IngredientData.CalculateLength(); i++) {
+        for (int i = 0; i < IngredientData.CalculateLength(); i++)
+        {
             Entity ingredientEntity = IngredientData.GetEntityArray()[i];
             //PostUpdateCommands.AddComponent(ingredientEntity, toWindow);
             //PostUpdateCommands.AddComponent(ingredientEntity, timedLife);
@@ -91,7 +98,8 @@ public class PizzaCheckSystem : ComponentSystem
         createNewPizza(pizzaIndex);
     }
 
-    private void createNewPizza (int pizzaIndex) {
+    private void createNewPizza(int pizzaIndex)
+    {
         PizzaGroup pizzaGroup = pizzaData.PizzaGroup[pizzaIndex];
         Position2D pizzaPosition = pizzaData.Position[pizzaIndex];
 
@@ -104,7 +112,8 @@ public class PizzaCheckSystem : ComponentSystem
         });
     }
 
-    private bool isPizzaComplete (int pizzaIndex) {
+    private bool isPizzaComplete(int pizzaIndex)
+    {
         List<int> currentIngredients = getIngredientsOnPizza(pizzaIndex);
         IngredientList ingredientList = pizzaData.PizzaOrder[pizzaIndex];
 
@@ -113,7 +122,8 @@ public class PizzaCheckSystem : ComponentSystem
         return missingIngredients.Count == 0;
     }
 
-    private void updatePizzaCost (int pizzaIndex) {
+    private void updatePizzaCost(int pizzaIndex)
+    {
         List<int> currentIngredients = getIngredientsOnPizza(pizzaIndex);
 
         PizzaCost pizzaCost = pizzaData.PizzaCost[pizzaIndex];
@@ -126,7 +136,7 @@ public class PizzaCheckSystem : ComponentSystem
 
         pizzaCost.ActualCost = actualCost;
         pizzaData.PizzaCost[pizzaIndex] = pizzaCost;
-                    
+
         // Legacy
         BootStrap.SetPizzaOrderUIPrice(
             (float)pizzaCost.ActualCost / 100,
@@ -134,7 +144,8 @@ public class PizzaCheckSystem : ComponentSystem
         );
     }
 
-    private List<int> getIngredientsOnPizza (int pizzaIndex) {
+    private List<int> getIngredientsOnPizza(int pizzaIndex)
+    {
         List<int> currentIngredients = new List<int>();
         IngredientData.SetFilter(pizzaData.PizzaGroup[pizzaIndex]);
 

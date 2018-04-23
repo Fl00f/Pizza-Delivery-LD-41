@@ -2182,7 +2182,7 @@ GameObject:
   - component: {fileID: 1226351785}
   - component: {fileID: 1226351784}
   m_Layer: 0
-  m_Name: IngredientPeperoniLook
+  m_Name: IngredientHotdogLook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

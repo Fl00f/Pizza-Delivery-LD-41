@@ -110,12 +110,12 @@ public class BootStrap
 
         IngredientsData = new IngredientData[]
         {
-            new IngredientData(){ IngredientName = "Pepperoni", IngredientLook = GetLookFromPrototype("IngredientPeperoniLook"), IngredientCost = 1.99f },
+            new IngredientData(){ IngredientName = "Hot Dog", IngredientLook = GetLookFromPrototype("IngredientHotdogLook"), IngredientCost = 1.99f },
             new IngredientData(){ IngredientName = "Onion", IngredientLook = GetLookFromPrototype("IngredientOnionLook"), IngredientCost = 1.99f },
             new IngredientData(){ IngredientName = "Chicken", IngredientLook = GetLookFromPrototype("IngredientChickenLook"), IngredientCost = 1.99f },
             new IngredientData(){ IngredientName = "Cheese", IngredientLook = GetLookFromPrototype("IngredientCheeseLook"), IngredientCost = 1.99f },
             new IngredientData(){ IngredientName = "Sausage", IngredientLook = GetLookFromPrototype("IngredientSausageLook"), IngredientCost = 1.99f },
-            new IngredientData(){ IngredientName = "Mushroom", IngredientLook = GetLookFromPrototype("IngredientPeperoniLook"), IngredientCost = 1.99f }
+            new IngredientData(){ IngredientName = "Mushroom", IngredientLook = GetLookFromPrototype("IngredientMushroomLook"), IngredientCost = 1.99f }
         };
     }
 
